@@ -41,8 +41,11 @@ def main():
 
         if action == 1:
             process_id = input("Enter process ID: ")
-            memory_required = int(input("Enter memory required: "))
-            simulator.add_process(process_id, memory_required)
+            if not simulator.p_exists(process_id=process_id):
+                memory_required = int(input("Enter memory required: "))
+                simulator.add_process(process_id, memory_required)
+            else:
+                print("Duplicate Process ID.")
         elif action == 2:
             process_id = input("Enter process ID: ")
             simulator.remove_process(process_id)

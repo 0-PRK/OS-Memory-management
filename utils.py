@@ -18,3 +18,9 @@ def print_allocation_table(processes):
     print("Process ID | Memory Allocated")
     for pid, (start, size) in processes.items():
         print(f"{pid}       | {start} - {start + size - 1}")
+        
+def exists(processes, p_id):
+    if p_id in processes.keys(): 
+        return True
+    else:
+        return False

@@ -15,7 +15,7 @@
 #     def display_memory_status(self):
 #         # Display the memory allocation status
 #         pass
-
+from utils import exists
 
 class UnequalPartitioning:
     def __init__(self, total_memory, partition_sizes):
@@ -47,3 +47,6 @@ class UnequalPartitioning:
         for i, (size, allocated_process) in enumerate(self.partitions):
             status = allocated_process if allocated_process is not None else "Free"
             print(f"Partition {i} (size {size}): {status}")
+            
+    def p_exists(self, process_id):
+        return exists(self.processes, process_id)

@@ -16,7 +16,7 @@
 #     def display_memory_status(self):
 #         # Display the memory allocation status
 #         pass
-
+from utils import exists
 
 class Paging:
     def __init__(self, total_memory, page_size=4):
@@ -54,3 +54,6 @@ class Paging:
         for i, frame in enumerate(self.frames):
             status = frame if frame is not None else "Free"
             print(f"Frame {i}: {status}")
+            
+    def p_exists(self, process_id):
+        return exists(self.processes, process_id)

@@ -1,4 +1,4 @@
-from utils import print_memory_layout, print_allocation_table
+from utils import print_memory_layout, print_allocation_table, exists
 
 class DynamicAllocation:
     def __init__(self, total_memory):
@@ -35,3 +35,6 @@ class DynamicAllocation:
                 allocated_memory[i] = 1
         print_memory_layout(allocated_memory, 10)  # Assuming block size of 10 for display
         print_allocation_table(self.processes)
+        
+    def p_exists(self, process_id):
+        return exists(self.processes, process_id)

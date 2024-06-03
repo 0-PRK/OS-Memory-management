@@ -1,3 +1,5 @@
+from utils import exists
+
 class FixedPartitioning:
     def __init__(self, total_memory, partition_size):
         self.total_memory = total_memory
@@ -30,3 +32,6 @@ class FixedPartitioning:
         for i, partition in enumerate(self.partitions):
             status = partition if partition is not None else "Free"
             print(f"Partition {i}: {status}")
+            
+    def p_exists(self, process_id):
+        return exists(self.processes, process_id)
