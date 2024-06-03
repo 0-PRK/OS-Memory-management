@@ -15,15 +15,32 @@ class DynamicAllocation:
                 else:
                     self.free_blocks[i] = (start + memory_required, size - memory_required)
                 print(f"Process {process_id} allocated memory from {start} to {start + memory_required - 1}")
+                print(self.free_blocks)
                 return
         print(f"Process {process_id} could not be allocated")
+        
+    def merge_fblocks(self):
+        for i, (start, size) in enumerate(self.free_blocks):
+            if(i==(len(self.free_blocks)-1)):
+                break
+            else:
+                self.free_blocks.sort()
+                startf, sizef = self.free_blocks[i+1]
+                if((start+size) == (startf)):
+                    nstart = start
+                    nsize = size+sizef
+                    self.free_blocks.pop(i)
+                    self.free_blocks.pop(i)
+                    self.free_blocks.append((nstart,nsize))
 
     def remove_process(self, process_id):
         if process_id in self.processes:
             start, size = self.processes.pop(process_id)
             self.free_blocks.append((start, size))
-            self.free_blocks.sort()  # Optional: merge contiguous free blocks here
+            print(self.free_blocks)
+            self.merge_fblocks()  # Optional: merge contiguous free blocks here
             print(f"Process {process_id} removed from memory block {start} to {start + size - 1}")
+            
         else:
             print(f"Process {process_id} not found")
 
@@ -38,3 +55,6 @@ class DynamicAllocation:
         
     def p_exists(self, process_id):
         return exists(self.processes, process_id)
+    
+    
+

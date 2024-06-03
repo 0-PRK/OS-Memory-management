@@ -1,21 +1,3 @@
-# class Paging:
-#     def __init__(self, total_memory, page_size=4):
-#         self.total_memory = total_memory
-#         self.page_size = page_size
-#         self.frames = [None] * (total_memory // page_size)  # List of frames
-#         self.processes = {}  # Dictionary to hold process allocations
-
-#     def add_process(self, process_id, memory_required):
-#         # Implement paging allocation strategy
-#         pass
-
-#     def remove_process(self, process_id):
-#         # Implement process removal
-#         pass
-
-#     def display_memory_status(self):
-#         # Display the memory allocation status
-#         pass
 from utils import exists
 
 class Paging:
@@ -43,9 +25,10 @@ class Paging:
 
     def remove_process(self, process_id):
         if process_id in self.processes:
-            for frame_index in self.processes.pop(process_id):
+            indices = self.processes.pop(process_id)
+            for frame_index in indices:
                 self.frames[frame_index] = None
-            print(f"Process {process_id} removed from frames")
+            print(f"Process {process_id} removed from frames {indices}")
         else:
             print(f"Process {process_id} not found")
 

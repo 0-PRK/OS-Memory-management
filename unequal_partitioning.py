@@ -1,20 +1,3 @@
-# class UnequalPartitioning:
-#     def __init__(self, total_memory):
-#         self.total_memory = total_memory
-#         self.partitions = []  # Define unequal-size partitions here
-#         self.processes = {}  # Dictionary to hold process allocations
-
-#     def add_process(self, process_id, memory_required):
-#         # Implement allocation based on partition sizes
-#         pass
-
-#     def remove_process(self, process_id):
-#         # Implement process removal
-#         pass
-
-#     def display_memory_status(self):
-#         # Display the memory allocation status
-#         pass
 from utils import exists
 
 class UnequalPartitioning:
