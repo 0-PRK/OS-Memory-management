@@ -53,7 +53,7 @@ class BuddySystem:
         print(f"Memory Utilization: {memory_utilization:.2f}%")
         print(f"Internal Fragmentation: {internal_fragmentation:.2f}%")
         print(f"External Fragmentation: {external_fragmentation:.2f}%")
-        print(f"Allocation Flexibility: Medium")
+        # print(f"Allocation Flexibility: Medium")
     def remove_process(self, process_id):
         if process_id in self.processes:
             start, size = self.processes.pop(process_id)

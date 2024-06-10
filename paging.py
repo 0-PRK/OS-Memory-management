@@ -51,7 +51,7 @@ class Paging:
         print(f"Memory Utilization: {memory_utilization:.2f}%")
         print(f"Internal Fragmentation: {internal_fragmentation:.2f}%")
         print(f"External Fragmentation: {external_fragmentation:.2f}%")
-        print(f"Allocation Flexibility: High")            
+        # print(f"Allocation Flexibility: High")            
             
     def p_exists(self, process_id):
         return exists(self.processes, process_id)
