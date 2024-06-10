@@ -33,5 +33,20 @@ class FixedPartitioning:
             status = partition if partition is not None else "Free"
             print(f"Partition {i}: {status}")
             
+    def display_metrics(self):
+        total_partitions = len(self.partitions)
+        used_partitions = sum(1 for p in self.partitions if p is not None)
+        free_partitions = total_partitions - used_partitions
+        
+        memory_utilization = (used_partitions / total_partitions) * 100
+        internal_fragmentation = (free_partitions / total_partitions) * 100
+        external_fragmentation = 0  # No external fragmentation in fixed partitions
+        
+        print(f"\nMetrics:")
+        print(f"Memory Utilization: {memory_utilization:.2f}%")
+        print(f"Internal Fragmentation: {internal_fragmentation:.2f}%")
+        print(f"External Fragmentation: {external_fragmentation:.2f}%")
+        print(f"Allocation Flexibility: Low")            
+            
     def p_exists(self, process_id):
         return exists(self.processes, process_id)

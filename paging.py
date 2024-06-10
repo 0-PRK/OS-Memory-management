@@ -4,6 +4,7 @@ class Paging:
     def __init__(self, total_memory, page_size=4):
         self.total_memory = total_memory
         self.page_size = page_size
+        self.num_pages = total_memory // page_size
         self.frames = [None] * (total_memory // page_size)  # List of frames
         self.processes = {}  # Dictionary to hold process allocations (process_id: [frame_indices])
 
@@ -37,6 +38,20 @@ class Paging:
         for i, frame in enumerate(self.frames):
             status = frame if frame is not None else "Free"
             print(f"Frame {i}: {status}")
+
+    def display_metrics(self):
+        used_frames = sum(1 for f in self.frames if f is not None)
+        free_frames = self.num_pages - used_frames
+        
+        memory_utilization = (used_frames / self.num_pages) * 100
+        internal_fragmentation = 0  # No internal fragmentation in paging
+        external_fragmentation = 0  # No external fragmentation in paging
+        
+        print(f"\nMetrics:")
+        print(f"Memory Utilization: {memory_utilization:.2f}%")
+        print(f"Internal Fragmentation: {internal_fragmentation:.2f}%")
+        print(f"External Fragmentation: {external_fragmentation:.2f}%")
+        print(f"Allocation Flexibility: High")            
             
     def p_exists(self, process_id):
         return exists(self.processes, process_id)

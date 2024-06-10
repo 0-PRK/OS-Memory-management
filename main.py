@@ -33,28 +33,39 @@ def main():
         return
 
     while True:
-        print("\n1. Add process")
-        print("2. Remove process")
-        print("3. View memory allocation status")
-        print("4. Exit")
-        action = int(input("Enter action: "))
-
-        if action == 1:
+        print("\nMenu:")
+        print("1. Add Process")
+        print("2. Remove Process")
+        print("3. Display Memory Status")
+        print("4. Display Metrics")
+        print("5. Exit")
+        
+        choice = input("Enter your choice: ")
+        
+        if choice == "1":
             process_id = input("Enter process ID: ")
-            if not simulator.p_exists(process_id=process_id):
-                memory_required = int(input("Enter memory required: "))
-                simulator.add_process(process_id, memory_required)
-            else:
-                print("Duplicate Process ID.")
-        elif action == 2:
-            process_id = input("Enter process ID: ")
+            memory_required = int(input("Enter memory required (in units): "))
+            if simulator.p_exists(process_id):
+                print(f"Process {process_id} already exists!")
+                continue
+            simulator.add_process(process_id, memory_required)
+        
+        elif choice == "2":
+            process_id = input("Enter process ID to remove: ")
             simulator.remove_process(process_id)
-        elif action == 3:
+        
+        elif choice == "3":
             simulator.display_memory_status()
-        elif action == 4:
+        
+        elif choice == "4":
+            simulator.display_metrics()
+        
+        elif choice == "5":
+            print("Exiting...")
             break
+        
         else:
-            print("Invalid action")
+            print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
     main()

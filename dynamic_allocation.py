@@ -19,19 +19,30 @@ class DynamicAllocation:
                 return
         print(f"Process {process_id} could not be allocated")
         
+    # def merge_fblocks(self):
+    #     for i, (start, size) in enumerate(self.free_blocks):
+    #         if(i==(len(self.free_blocks)-1)):
+    #             break
+    #         else:
+    #             self.free_blocks.sort()
+    #             startf, sizef = self.free_blocks[i+1]
+    #             if((start+size) == (startf)):
+    #                 nstart = start
+    #                 nsize = size+sizef
+    #                 self.free_blocks.pop(i)
+    #                 self.free_blocks.pop(i)
+    #                 self.free_blocks.append((nstart,nsize))
+
+
     def merge_fblocks(self):
-        for i, (start, size) in enumerate(self.free_blocks):
-            if(i==(len(self.free_blocks)-1)):
-                break
+        self.free_blocks.sort()
+        merged_blocks = []
+        for block in self.free_blocks:
+            if merged_blocks and merged_blocks[-1][1] == block[0]:
+                merged_blocks[-1] = (merged_blocks[-1][0], merged_blocks[-1][1] + block[1])
             else:
-                self.free_blocks.sort()
-                startf, sizef = self.free_blocks[i+1]
-                if((start+size) == (startf)):
-                    nstart = start
-                    nsize = size+sizef
-                    self.free_blocks.pop(i)
-                    self.free_blocks.pop(i)
-                    self.free_blocks.append((nstart,nsize))
+                merged_blocks.append(block)
+        self.free_blocks = merged_blocks
 
     def remove_process(self, process_id):
         if process_id in self.processes:
@@ -52,6 +63,21 @@ class DynamicAllocation:
                 allocated_memory[i] = 1
         print_memory_layout(allocated_memory, 10)  # Assuming block size of 10 for display
         print_allocation_table(self.processes)
+
+
+    def display_metrics(self):
+        used_memory = sum(size for _, size in self.processes.values())
+        free_memory = sum(size for _, size in self.free_blocks)
+        
+        memory_utilization = (used_memory / self.total_memory) * 100
+        internal_fragmentation = 0  # No internal fragmentation in dynamic allocation
+        external_fragmentation = (free_memory / self.total_memory) * 100
+        
+        print(f"\nMetrics:")
+        print(f"Memory Utilization: {memory_utilization:.2f}%")
+        print(f"Internal Fragmentation: {internal_fragmentation:.2f}%")
+        print(f"External Fragmentation: {external_fragmentation:.2f}%")
+        print(f"Allocation Flexibility: High")            
         
     def p_exists(self, process_id):
         return exists(self.processes, process_id)

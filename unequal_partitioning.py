@@ -30,6 +30,21 @@ class UnequalPartitioning:
         for i, (size, allocated_process) in enumerate(self.partitions):
             status = allocated_process if allocated_process is not None else "Free"
             print(f"Partition {i} (size {size}): {status}")
+
+    def display_metrics(self):
+        total_partitions = len(self.partitions)
+        used_partitions = sum(1 for _, p in self.partitions if p is not None)
+        free_partitions = total_partitions - used_partitions
+        
+        memory_utilization = (sum(size for size, p in self.partitions if p is not None) / self.total_memory) * 100
+        internal_fragmentation = (sum(size for size, p in self.partitions if p is None) / self.total_memory) * 100
+        external_fragmentation = 0  # No external fragmentation in fixed partitions
+        
+        print(f"\nMetrics:")
+        print(f"Memory Utilization: {memory_utilization:.2f}%")
+        print(f"Internal Fragmentation: {internal_fragmentation:.2f}%")
+        print(f"External Fragmentation: {external_fragmentation:.2f}%")
+        print(f"Allocation Flexibility: Medium")            
             
     def p_exists(self, process_id):
         return exists(self.processes, process_id)

@@ -41,6 +41,19 @@ class BuddySystem:
 
         print(f"Process {process_id} could not be allocated")
 
+    def display_metrics(self):
+        used_memory = sum(size for _, size in self.processes.values())
+        free_memory = sum(len(addrs) * size for size, addrs in self.free_blocks.items())
+        
+        memory_utilization = (used_memory / self.total_memory) * 100
+        internal_fragmentation = 0  # No internal fragmentation in buddy system
+        external_fragmentation = (free_memory / self.total_memory) * 100
+        
+        print(f"\nMetrics:")
+        print(f"Memory Utilization: {memory_utilization:.2f}%")
+        print(f"Internal Fragmentation: {internal_fragmentation:.2f}%")
+        print(f"External Fragmentation: {external_fragmentation:.2f}%")
+        print(f"Allocation Flexibility: Medium")
     def remove_process(self, process_id):
         if process_id in self.processes:
             start, size = self.processes.pop(process_id)
